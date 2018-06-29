@@ -20,7 +20,7 @@
       );
     });
     
-    self.addEventListener('fetch', function(event) {
+    self.addEventListener('fetch', event => {
       const requestUrl = new URL(event.request.url);
   
     if (requestUrl.origin === location.origin) {
@@ -33,27 +33,27 @@
   
       event.respondWith(
         //loadCur(),
-        caches.match(event.request).then(function(response) {
+        caches.match(event.request).then(response => {
           return response || fetch(event.request);
         })
       );
     });
   
     const loadCur = () =>{
-      var cur = indexedDB.open("currencies");
+      let cur = indexedDB.open("currencies");
       cur.onsuccess = function (conn){
-      var trans = cur.result.transaction(["store"]);
-      var obj = trans.objectStore("store");
-      var cursor = obj.openCursor();
-      cursor.onsuccess = function (e) {
+      let trans = cur.result.transaction(["store"]);
+      let obj = trans.objectStore("store");
+      let cursor = obj.openCursor();
+      cursor.onsuccess = e => {
               if (!cursor.result) {
-                 var from = document.getElementById("from"); 
-                 var to = document.getElementById("to"); 
-                 var option = document.createElement("option");
-                 var option2 = document.createElement("option");
+                 let from = document.getElementById("from"); 
+                 let to = document.getElementById("to"); 
+                 let option = document.createElement("option");
+                 let option2 = document.createElement("option");
                  option.value = cursor.result.value;
                  option2.value = cursor.result.value;                
-                 var optionText = document.createTextNode(cursor.result.value);                
+                 let optionText = document.createTextNode(cursor.result.value);                
                  option.appendChild(optionText);
                  option2.appendChild(optionText);
                  from.appendChild(option); 
@@ -67,15 +67,15 @@
   }
   
     
-    self.addEventListener('activate', function(event) {
+    self.addEventListener('activate', event => {
     
       let cacheWhitelist = [version];
     
       event.waitUntil(
         loadCur(),
-        caches.keys().then(function(cacheNames) {
+        caches.keys().then(cacheNames => {
           return Promise.all(
-            cacheNames.map(function(cacheName) {
+            cacheNames.map(cacheName => {
               if (version && cacheWhitelist.indexOf(cacheName) === -1) {
                 console.log('Deleted old cache');
                 return caches.delete(cacheName);
@@ -86,7 +86,7 @@
       );
     });
     //skipWaiting
-    self.addEventListener('message', function(event) {
+    self.addEventListener('message', event => {
       if (event.data.action === 'skipWaiting') {
         self.skipWaiting();
       }
@@ -94,7 +94,7 @@
      // Ensure refresh is only called once.
     // This works around a bug in "force update on reload".
     let refreshing;
-    self.addEventListener('controllerchange', function() {
+    self.addEventListener('controllerchange', () => {
       if (refreshing) return;
       window.location.reload();
       refreshing = true;
