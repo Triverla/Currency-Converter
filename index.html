@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Currency-Converter| Home</title>
+    <link rel='stylesheet' href='css/bootstrap.css' />
+    <link rel='stylesheet' href='css/font-awesome/css/font-awesome.min.css' />
+    <script src="js/index.js"></script>
+    <script src="js/currencyconverter.js"></script>
+    <script src="js/idb.js"></script>
+  </head>
+  <body onload="loadCurrencies()">
+    <header class="main-header">
+      <nav class="navbar navbar-default navbar-static-top">
+        <div class="navbar-header">
+          <a class="navbar-brand">Currency Converter</a>
+        </div>
+        <div id="navbar-collapse" class="navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Contact Us</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+     
+    <div class="container-fluid">
+            <div class="row">
+              <center><h1>Currency Converter</h1></center><br>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+                      <div class="form-group">
+                        <label class="sr-only" for="Amount">Amount</label>
+                        <div class="input-group">
+                          <div class="input-group-addon"><i class="fa fa-2x fa-euro"></i></div>
+                          <input type="text" class="form-control" id="amount" placeholder="Amount">
+                          <select id="from" class="form-control" ></select>
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+                        <center>
+                          <button type="button" id="gobutton" class="btn btn-default"onclick="convertCurrency(); saveCurrencies();">Convert</button>
+                          <input type="text" id="convrate" class="btn btn-default" placeholder="Rate:" readonly>
+                        </center><br>
+                    </div>
+        
+                    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+                        <div class="form-group">
+                            <label class="sr-only" for="Amount">Amount</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-2x fa-dollar"></i></div>
+                                <select id="to" class="form-control"></select>
+                                <input type="text" class="form-control" id="toamount" placeholder="Coverted Amount" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <center><h5>Powered by <a href="https://free.currencyconverterapi.com"> <b>Currency</b>Coverter<i>API</i></a></h5></center>
+                <input type="text" id="idbsav" class="btn btn-default" readonly>
+              </div>
+        </div>
+      </div>
+    
+    </div>
+  
+    </body>
+    <script>
+      if("indexedDB" in window) {
+        console.log('IDB works');
+  }
+    </script>
+</html>
