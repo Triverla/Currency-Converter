@@ -32,8 +32,8 @@ let loadCurrencies = () => {
     
           // Examine the text in the response  
           response.json().then((results) => {  
-            for (const result of results){
-              for (const id of results[result]){
+            for (const result in results){
+              for (const id in results[result]){
                 const option1 = document.createElement('option');
                 const option2 = document.createElement('option');
                 option1.value = results[result][id]['id'];
@@ -63,7 +63,7 @@ let loadCurrencies = () => {
       fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=ultra`).then((response)=> {
          return response.json();
          }).then((rates) => {
-            for(let rate of rates){
+            for(let rate in rates){
               console.log(rates[rate]); //rate of currency to be converted to
               let calc = rates[rate]; //rate being pass back to object to get the value
               convrate.value = calc; //to dispay conversion rate
