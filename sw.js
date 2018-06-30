@@ -1,6 +1,6 @@
 
     const urlsToCache_ = [
-      '/',
+      'index.html',
       'css/bootstrap.css',
       'js/currencyconverter.js',
       'js/idb.js',
