@@ -109,10 +109,10 @@ let loadCurrencies = () => {
               "currrency": from ,
               "rate": calc,
               });
-              saveOperation.onsuccess = function (e) {
+              saveOperation.onsuccess = e => {
                console.log('Save to indexDb: ',e.target.result)
                };
-               saveOperation.onerror = function (e) {
+               saveOperation.onerror = e => {
                 console.log('Save to indexDb: ',e.value)
                };
                
