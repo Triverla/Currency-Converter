@@ -1,9 +1,9 @@
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('DOMContentLoaded', () => {
     navigator.serviceWorker.register('sw.js')
-    .then(function(registration) {
+    .then(registration => {
       console.log('Service Worker registered:', registration);
     })
-    .catch(function(error) {
+    .catch(error => {
       console.error('Service Worker could not be registered:', error);
     });
 });

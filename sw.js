@@ -1,6 +1,6 @@
 
     const urlsToCache_ = [
-      'index.html',
+      'https://triverla.github.io/Currency-Converter/',
       'css/bootstrap.css',
       'js/currencyconverter.js',
       'js/idb.js',
@@ -24,8 +24,8 @@
       const requestUrl = new URL(event.request.url);
   
     if (requestUrl.origin === location.origin) {
-      if (requestUrl.pathname === '/') {
-        event.respondWith(caches.match('/'));
+      if (requestUrl.pathname === '/Currency-Converter') {
+        event.respondWith(caches.match('Currency-Converter/'));
         return;
       }
       
