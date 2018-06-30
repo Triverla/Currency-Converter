@@ -100,11 +100,6 @@ let loadCurrencies = () => {
             for(let rate in rates){
               console.log(rates[rate]); //rate of currency to be converted to
               let calc = rates[rate]; //rate being pass back to object to get the value
-              //convrate.value = calc; //to dispay conversion rate
-              /*let total = (calc * amount); 
-              console.log(total);//display calculated result
-              toamount.value = total;
-              amountVal.value = amount;*/
               let saveOperation = tbl.add({
               "currrency": from ,
               "rate": calc,
