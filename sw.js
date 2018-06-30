@@ -1,10 +1,10 @@
 
     const urlsToCache_ = [
       '/',
-      '/css/bootstrap.css',
-      '/js/currencyconverter.js',
-      '/js/idb.js',
-      '/css/font-awesome/css/font-awesome.min.css'
+      'css/bootstrap.css',
+      'js/currencyconverter.js',
+      'js/idb.js',
+      'css/font-awesome/css/font-awesome.min.css'
     ];
     
     const version = 'v1.0';
