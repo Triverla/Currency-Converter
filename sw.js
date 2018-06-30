@@ -72,7 +72,7 @@
       let cacheWhitelist = [version];
     
       event.waitUntil(
-        loadCur(),
+        //loadCur(),
         caches.keys().then(cacheNames => {
           return Promise.all(
             cacheNames.map(cacheName => {
