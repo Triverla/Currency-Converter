@@ -66,10 +66,10 @@ let loadCurrencies = () => {
             for(let rate in rates){
               console.log(rates[rate]); //rate of currency to be converted to
               let calc = rates[rate]; //rate being pass back to object to get the value
-              convrate.value = calc; //to dispay conversion rate
+              convrate.value = calc.toFixed(2); //to dispay conversion rate
               let total = (calc * amount); 
               console.log(total);//display calculated result
-              toamount.value = total;
+              toamount.value = total.toFixed(2);
               amountVal.value = amount;
             }
          });

@@ -55,7 +55,7 @@ const saveCurrencies = () => {
     var db = event.target.result;
 
     // Create an object store called "currency"    
-    var objStore = db.createObjectStore("currency", { keyPath: 'from' });
+    var objStore = db.createObjectStore("currency", { keyPath: 'currency' });
     }
     if (request) {
       request.onsuccess = function (e) {
@@ -67,16 +67,16 @@ const saveCurrencies = () => {
       //S3: Read values entered in each textbox and also the selected date 
       var from = document.getElementById('from').value;
       var to = document.getElementById('to').value;
-      var amount = document.getElementById('amount').value;
-      var toamount = document.getElementById('toamount').value;
+      var cur = `${from}_${to}`;
+      //var amount = document.getElementById('amount').value;
+      //var toamount = document.getElementById('toamount').value;
       var convrate = document.getElementById('convrate').value;
       //var toamount = parseInt(document.getElementById('to').value) * parseInt(document.getElementById('txtqty').value);
       //S4: Add the values against each keypath on object store
       var saveOperation = tbl.add({
-        "to": to ,
-        "from":from,
-        "amount":amount,
-        "toamount":toamount,
+       "currency": cur,
+        //"amount":amount,
+        //"toamount":toamount,
         //TODO Save Exchange Rate
         "convrate":convrate
        });
