@@ -18,6 +18,7 @@ openRequest.onsuccess = e => {
   db = e.target.result;
   addCurrencies();
   saveCurrencies();
+  loadCur();
 };
 openRequest.onerror = e => {
   console.log('onerror!');
@@ -53,7 +54,7 @@ const saveCurrencies = () => {
 
     var db = event.target.result;
 
-    // Create another object store called "names" with the autoIncrement flag set as true.    
+    // Create an object store called "currency"    
     var objStore = db.createObjectStore("currency", { keyPath: 'from' });
     }
     if (request) {
@@ -87,9 +88,35 @@ const saveCurrencies = () => {
         var res = document.getElementById("idbsav");
         res.value = "Error Occured" + e.value;
        };
-       //document.getElementById('txtprice').value = totalPrice;
+       
        return currStore.complete;
       };
-    //loadOrder(); //Load Orders if Table is already Available
     }
     }
+
+    const loadCur = () =>{
+      let cur = indexedDB.open("currencies");
+      cur.onsuccess = function (conn){
+      let trans = cur.result.transaction(["store"]);
+      let obj = trans.objectStore("store");
+      let cursor = obj.openCursor();
+      cursor.onsuccess = e => {
+              if (!cursor.result) {
+                 let from = document.getElementById("from"); 
+                 let to = document.getElementById("to"); 
+                 let option = document.createElement("option");
+                 let option2 = document.createElement("option");
+                 option.value = cursor.result.value;
+                 option2.value = cursor.result.value;                
+                 let optionText = document.createTextNode(cursor.result.value);                
+                 option.appendChild(optionText);
+                 option2.appendChild(optionText);
+                 from.appendChild(option); 
+                 to.appendChild(option);
+                 cursor["continue"]()
+              } else {
+                 // cursor ended
+              }
+      }
+    }
+  }

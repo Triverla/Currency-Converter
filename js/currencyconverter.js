@@ -74,4 +74,55 @@ let loadCurrencies = () => {
             }
          });
      }
+
+     const getRate = () =>{
+      let request = indexedDB.open('currency-rate', 1);
+      request.onupgradeneeded = (event) => {
+
+      var db = event.target.result;
+
+      // Create an object store called "currency"    
+      var store = db.createObjectStore("currency", { keyPath: 'from' });
+      }
+      if (request) {
+        request.onsuccess = function (e) {
+          //var objectStore = e.target.result.createObjectStore("name", { keyPath: "myKey" });
+        //S1: Get the Transaction for the ObjectStore, here in this case it is for readwrite 
+        var currStore = e.target.result.transaction('currency', "readwrite");
+        //S2: Get the object store object
+        var tbl = currStore.objectStore('currency');
+
+      let from            =   document.getElementById("from").value;
+      let to              =   document.getElementById("to").value;
+      fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=ultra`).then((response)=> {
+         return response.json();
+         }).then((rates) => {
+            for(let rate in rates){
+              console.log(rates[rate]); //rate of currency to be converted to
+              let calc = rates[rate]; //rate being pass back to object to get the value
+              //convrate.value = calc; //to dispay conversion rate
+              /*let total = (calc * amount); 
+              console.log(total);//display calculated result
+              toamount.value = total;
+              amountVal.value = amount;*/
+              let saveOperation = tbl.add({
+              "currrency": from ,
+              "rate": calc,
+              });
+              saveOperation.onsuccess = function (e) {
+               console.log('Save to indexDb: ',e.target.result)
+               };
+               saveOperation.onerror = function (e) {
+                console.log('Save to indexDb: ',e.value)
+               };
+               
+               return currStore.complete;
+              };
+              });
+              
+             }
+             
+                  
+                }
+     }
     
