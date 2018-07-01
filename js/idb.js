@@ -50,34 +50,23 @@ ccurrencies = [currencies.results];
 
 const saveCurrencies = () => {
     let request = indexedDB.open('curr', 3);
-    request.onupgradeneeded = (event) => {
+    request.onupgradeneeded = event => {
 
     var db = event.target.result;
 
     // Create an object store called "currency"    
-    var objStore = db.createObjectStore("currency", { keyPath: 'currency' });
-    }
+    var objStore = db.createObjectStore("currency", { keyPath: 'id' });
+    
     if (request) {
-      request.onsuccess = function (e) {
-        //var objectStore = e.target.result.createObjectStore("name", { keyPath: "myKey" });
-      //S1: Get the Transaction for the ObjectStore, here in this case it is for readwrite 
+      request.onsuccess = e => {
       var currStore = e.target.result.transaction('currency', "readwrite");
-      //S2: Get the object store object
       var tbl = currStore.objectStore('currency');
-      //S3: Read values entered in each textbox and also the selected date 
       var from = document.getElementById('from').value;
       var to = document.getElementById('to').value;
-      var cur = `${from}_${to}`;
-      //var amount = document.getElementById('amount').value;
-      //var toamount = document.getElementById('toamount').value;
+      var cur = `'https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=ultra'`;
       var convrate = document.getElementById('convrate').value;
-      //var toamount = parseInt(document.getElementById('to').value) * parseInt(document.getElementById('txtqty').value);
-      //S4: Add the values against each keypath on object store
-      var saveOperation = tbl.add({
+      var saveOperation = tbl.put({
        "currency": cur,
-        //"amount":amount,
-        //"toamount":toamount,
-        //TODO Save Exchange Rate
         "convrate":convrate
        });
        saveOperation.onsuccess = function (e) {
@@ -92,31 +81,5 @@ const saveCurrencies = () => {
        return currStore.complete;
       };
     }
-    }
-
-    const loadCur = () =>{
-      let cur = indexedDB.open("currencies");
-      cur.onsuccess = function (conn){
-      let trans = cur.result.transaction(["store"]);
-      let obj = trans.objectStore("store");
-      let cursor = obj.openCursor();
-      cursor.onsuccess = e => {
-              if (!cursor.result) {
-                 let from = document.getElementById("from"); 
-                 let to = document.getElementById("to"); 
-                 let option = document.createElement("option");
-                 let option2 = document.createElement("option");
-                 option.value = cursor.result.value;
-                 option2.value = cursor.result.value;                
-                 let optionText = document.createTextNode(cursor.result.value);                
-                 option.appendChild(optionText);
-                 option2.appendChild(optionText);
-                 from.appendChild(option); 
-                 to.appendChild(option);
-                 cursor["continue"]()
-              } else {
-                 // cursor ended
-              }
-      }
     }
   }
