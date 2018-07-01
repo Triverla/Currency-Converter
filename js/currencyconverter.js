@@ -32,12 +32,15 @@ let loadCurrencies = () => {
     
           // Examine the text in the response  
           response.json().then((results) => {  
+            results.sort( a,b =>{
+              return a.id -b.id
+            });
             for (const result in results){
               for (const id in results[result]){
                 const option1 = document.createElement('option');
                 const option2 = document.createElement('option');
-                option1.value = results[result.sort()][id]['id'];
-                option2.value = results[result.sort()][id]['id'];
+                option1.value = results[result][id]['id'];
+                option2.value = results[result][id]['id'];
                 option1.appendChild(document.createTextNode(results[result][id]['id']));
                 option2.appendChild(document.createTextNode(results[result][id]['id']));
                 from.appendChild(option1);
