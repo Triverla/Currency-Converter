@@ -65,7 +65,7 @@ const saveCurrencies = () => {
         
             // Create an object store called "currency"    
             let objStore = db.createObjectStore("conversions");
-              objStore.createIndex('key', 'value');
+              //objStore.createIndex('key', 'value');
             }
             if (request) {
               request.onsuccess = e => {
