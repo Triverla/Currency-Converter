@@ -5,7 +5,8 @@
       'js/currencyconverter.js',
       'js/idb.js',
       'css/font-awesome/css/font-awesome.min.css',
-      'https://free.currencyconverterapi.com/api/v5/currencies'
+      'https://free.currencyconverterapi.com/api/v5/currencies',
+      'https://free.currencyconverterapi.com/api/v5/convert?q=USD_NGN&compact=ultra'
     ];
     
     const version = 'v1.0';
@@ -31,8 +32,14 @@
       } 
     }
     if(requestUrl.url === 'https://free.currencyconverterapi.com/api/v5/currencies'){
-      console.log("IndexDB Reqrd");
+      console.log("Added to cache");
       event.respondWith(caches.match('https://free.currencyconverterapi.com/api/v5/currencies'));
+      return;
+    }
+
+    if(requestUrl.url === 'https://free.currencyconverterapi.com/api/v5/convert?q=USD_NGN&compact=ultra'){
+      console.log("Added to cache");
+      event.respondWith(caches.match('https://free.currencyconverterapi.com/api/v5/convert?q=USD_NGN&compact=ultra'));
       return;
     }
   
