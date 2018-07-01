@@ -29,7 +29,7 @@
         return;
       } 
     }
-    if(requestUrl.url === 'https://api.github.com/users/abt10/repos'){
+    if(requestUrl.url === 'https://free.currencyconverterapi.com/api/v5/currencies'){
       console.log("IndexDB Reqrd");
       let openRequest = indexedDB.open('currencies', 1);
       openRequest.onupgradeneeded = e => {
