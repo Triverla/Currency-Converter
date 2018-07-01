@@ -7,8 +7,7 @@
       'logo.png',
       'css/font-awesome/css/font-awesome.min.css',
       'https://free.currencyconverterapi.com/api/v5/currencies',
-      'https://free.currencyconverterapi.com/api/v5/convert?q=USD_NGN&compact=ultra',
-      'https://free.currencyconverterapi.com/api/v5/convert?q=NGN_USD,NGN_EUR'
+      'https://free.currencyconverterapi.com/api/v5/convert?q=USD_NGN&compact=ultra'
     ];
     
     const version = 'v1.0';

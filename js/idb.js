@@ -58,7 +58,6 @@ const saveCurrencies = () => {
               console.log(rates[rate]); //rate of currency to be converted to
               let calc = rates[rate]; //rate being pass back to object to get the value
               let crate = calc.toFixed(2); //to dispay conversion rate
-            }
             let request = indexedDB.open('curr', 3);
             request.onupgradeneeded = event => {
         
@@ -71,10 +70,7 @@ const saveCurrencies = () => {
               request.onsuccess = e => {
               let currStore = e.target.result.transaction('currency', "readwrite");
               let tbl = currStore.objectStore('currency');
-            let saveOperation = tbl.add({
-              "currency": cur,
-               "convrate": crate
-              });
+            let saveOperation = tbl.add(crate);
               saveOperation.onsuccess = e => {
                 console.log("Saved to indexDB: " + e.target.result);
               };
@@ -82,6 +78,7 @@ const saveCurrencies = () => {
                 console.log("Error occured: " + e.value);
               };
               return currStore.complete;
+            }
          }
       };
     }
