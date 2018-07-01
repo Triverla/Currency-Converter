@@ -75,47 +75,4 @@ let loadCurrencies = () => {
          });
      }
 
-     const getRate = () =>{
-      let request = indexedDB.open('currency-rate', 1);
-      request.onupgradeneeded = (event) => {
-
-      var db = event.target.result;
-
-      // Create an object store called "currency"    
-      var store = db.createObjectStore("currency", { keyPath: 'rates' });
-      }
-      if (request) {
-        request.onsuccess = function (e) {
-        var currStore = e.target.result.transaction(["currency"], "readwrite");
-        var tbl = currStore.objectStore("currency");
-
-          let from            =   document.getElementById("from").value;
-          let to              =   document.getElementById("to").value;
-          let input = `${from}_${to}`;
-          fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${input}&compact=ultra`).then((response)=> {
-            return response.json();
-            }).then((rates) => {
-              for(let rate in rates){
-                let conversionrate = rates[rate]; //rate being pass back to object to get the value
-                console.log(conversionrate);
-                let saveOperation = tbl.add({
-                  "currrency":  input,
-                  "rate": conversionrate,
-                });
-              saveOperation.onsuccess = e => {
-               console.log('Save to indexDb: ',e.target.result)
-               };
-               saveOperation.onerror = e => {
-                console.log('Save to indexDb: ',e.value)
-               };
-               
-               return currStore.complete;
-              };
-              });
-              
-             }
-             
-                  
-                }
-     }
     

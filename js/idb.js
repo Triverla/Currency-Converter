@@ -5,7 +5,7 @@ const url = 'https://free.currencyconverterapi.com/api/v5/currencies';
 let openRequest = indexedDB.open('currencies', 1);
 
 openRequest.onupgradeneeded = e => {
-  var db = e.target.result;
+  let db = e.target.result;
   console.log('running onupgradeneeded');
   if (!db.objectStoreNames.contains('store')) {
     let storeOS = db.createObjectStore('store',
@@ -51,29 +51,30 @@ const saveCurrencies = () => {
     let request = indexedDB.open('curr', 3);
     request.onupgradeneeded = event => {
 
-    var db = event.target.result;
+    let db = event.target.result;
 
     // Create an object store called "currency"    
-    var objStore = db.createObjectStore("currency", { keyPath: 'currency' });
+    let objStore = db.createObjectStore("currency", { keyPath: 'currency' });
     }
     if (request) {
       request.onsuccess = e => {
-      var currStore = e.target.result.transaction('currency', "readwrite");
-      var tbl = currStore.objectStore('currency');
-      var from = document.getElementById('from').value;
-      var to = document.getElementById('to').value;
-      var cur = `${from}_${to}`;
-      var convrate = `https://free.currencyconverterapi.com/api/v5/convert?q=${cur}&compact=ultra`;
-      var saveOperation = tbl.add({
+      let currStore = e.target.result.transaction('currency', "readwrite");
+      let tbl = currStore.objectStore('currency');
+      let from = document.getElementById('from').value;
+      let to = document.getElementById('to').value;
+      let cur = `${from}_${to}`;
+      const curl = 'https://free.currencyconverterapi.com/api/v5/convert?q=${cur}&compact=ultra'
+      let convrate = curl;
+      let saveOperation = tbl.add({
        "currency": cur,
-        "convrate":convrate
+        "convrate": convrate
        });
-       saveOperation.onsuccess = function (e) {
-        var res = document.getElementById("idbsav");
+       saveOperation.onsuccess = e => {
+        let res = document.getElementById("idbsav");
         res.value = "Saved to indexDB: " + e.target.result;
        };
-       saveOperation.onerror = function (e) {
-        var res = document.getElementById("idbsav");
+       saveOperation.onerror = e => {
+        let res = document.getElementById("idbsav");
         res.value = "Error Occured" + e.value;
        };
        

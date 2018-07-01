@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Currency-Converter| Home</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, name="viewport">
     <link rel='stylesheet' href='css/bootstrap.css' />
     <link rel='stylesheet' href='css/font-awesome/css/font-awesome.min.css' />
+    <link rel="manifest" href="manifest.json">
     <script src="js/index.js"></script>
     <script src="js/currencyconverter.js"></script>
     <script src="js/idb.js"></script>
@@ -42,7 +43,7 @@
         
                     <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
                         <center>
-                         <button type="button" id="convert" class="btn btn-default" onclick="convertCurrency();saveCurrencies();getRate();">Convert</button>
+                         <button type="button" id="convert" class="btn btn-default" onclick="convertCurrency();saveCurrencies();">Convert</button>
                           <input type="text" id="convrate" class="btn btn-default" placeholder="Rate:" readonly/>
                         </center><br>
                     </div>
