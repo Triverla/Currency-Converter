@@ -54,7 +54,7 @@ const saveCurrencies = () => {
     var db = event.target.result;
 
     // Create an object store called "currency"    
-    var objStore = db.createObjectStore("converted-currency", { keyPath: 'currencies' });
+    var objStore = db.createObjectStore("currency", { keyPath: 'currency' });
     }
     if (request) {
       request.onsuccess = e => {
