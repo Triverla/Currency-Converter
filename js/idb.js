@@ -18,7 +18,6 @@ openRequest.onsuccess = e => {
   db = e.target.result;
   addCurrencies();
   saveCurrencies();
-  loadCur();
 };
 openRequest.onerror = e => {
   console.log('onerror!');
