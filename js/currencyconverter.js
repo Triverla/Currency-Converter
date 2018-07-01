@@ -31,8 +31,7 @@ let loadCurrencies = () => {
           }
     
           // Examine the text in the response  
-          response.json().then((data) => {  
-            let results = data.sort();
+          response.json().then((results) => {  
             for (const result in results){
               for (const id in results[result]){
                 const option1 = document.createElement('option');
