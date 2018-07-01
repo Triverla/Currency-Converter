@@ -75,15 +75,13 @@ const saveCurrencies = () => {
                "convrate": crate
               });
               saveOperation.onsuccess = e => {
-                let res = document.getElementById("idbsav");
-                res.value = "Saved to indexDB: " + e.target.result;
-               };
-               saveOperation.onerror = e => {
-                let res = document.getElementById("idbsav");
-                res.value = "Error Occured" + e.value;
-               };
+                console.log("Saved to indexDB: " + e.target.result);
+              };
+              saveOperation.onerror = e => {
+                console.log("Error occured: " + e.value);
+              };
+              return currStore.complete;
          }
-       return currStore.complete;
       };
     }
   );
