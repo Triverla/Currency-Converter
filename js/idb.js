@@ -57,8 +57,9 @@ const saveCurrencies = () => {
             for(let rate in rates){
               console.log(rates[rate]); //rate of currency to be converted to
               let calc = rates[rate]; //rate being pass back to object to get the value
-              crate = calc.toFixed(2); //to dispay conversion rate
-            }let request = indexedDB.open('curr', 3);
+              let crate = calc.toFixed(2); //to dispay conversion rate
+            }
+            let request = indexedDB.open('curr', 3);
             request.onupgradeneeded = event => {
         
             let db = event.target.result;
