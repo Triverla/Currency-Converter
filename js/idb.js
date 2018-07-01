@@ -18,7 +18,6 @@ openRequest.onsuccess = e => {
   db = e.target.result;
   addCurrencies();
   saveCurrencies();
-  loadCur();
 };
 openRequest.onerror = e => {
   console.log('onerror!');
@@ -81,4 +80,9 @@ const saveCurrencies = () => {
        return currStore.complete;
       };
     }
+<<<<<<< HEAD
     }
+=======
+    }
+  }
+>>>>>>> ef98acfc0741683c6a77a3e1001666b64fcebf2d
