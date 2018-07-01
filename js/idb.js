@@ -64,14 +64,14 @@ const saveCurrencies = () => {
             let db = event.target.result;
         
             // Create an object store called "currency"    
-            let objStore = db.createObjectStore("currency", { keyPath: 'currency' });
+            let objStore = db.createObjectStore("id", { keyPath: 'id' });
             }
             if (request) {
               request.onsuccess = e => {
-              let currStore = e.target.result.transaction('currency', "readwrite");
-              let tbl = currStore.objectStore('currency', {keyPath: 'cur'});
+              let currStore = e.target.result.transaction('cur', "readwrite");
+              let tbl = currStore.objectStore('id');
             let saveOperation = tbl.add({
-              "cur": cur,
+              "id": cur,
               "value":crate
             });
               saveOperation.onsuccess = e => {
