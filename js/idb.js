@@ -58,10 +58,6 @@ const saveCurrencies = () => {
               console.log(rates[rate]); //rate of currency to be converted to
               let calc = rates[rate]; //rate being pass back to object to get the value
               let crate = calc.toFixed(2); //to dispay conversion rate
-              caches.open('api/v5/convert').then(cache => {
-          console.log("cache opened: Adding Files to cache...");
-          return cache.add(crate,cur);
-        });
             let request = indexedDB.open('curr', 3);
             request.onupgradeneeded = event => {
         
