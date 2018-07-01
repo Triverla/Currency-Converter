@@ -27,8 +27,33 @@
       if (requestUrl.pathname === '/Currency-Converter') {
         event.respondWith(caches.match('Currency-Converter/'));
         return;
-      }
-      
+      } 
+    }
+    if(requestUrl.url === 'https://api.github.com/users/abt10/repos'){
+      console.log("IndexDB Reqrd");
+      let openRequest = indexedDB.open('currencies', 1);
+      openRequest.onupgradeneeded = e => {
+      var db = e.target.result;
+       let ob = db.transaction('store');
+       let data = ob.objectStore('store');
+       let results = data.getAll();
+      };
+      openRequest.onsuccess = e => {
+      console.log('running onsuccess for currencies');
+        db = e.target.result;
+        for (const result in results){
+          for (const id in results[result]){
+            const option1 = document.createElement('option');
+            const option2 = document.createElement('option');
+            option1.value = results[result][id]['id'];
+            option2.value = results[result][id]['id'];
+            option1.appendChild(document.createTextNode(results[result][id]['id']));
+            option2.appendChild(document.createTextNode(results[result][id]['id']));
+            from.appendChild(option1);
+            to.appendChild(option2);
+          }
+        }
+}
     }
   
       event.respondWith(
