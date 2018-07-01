@@ -40,7 +40,7 @@
       };
       openRequest.onsuccess = e => {
       console.log('running onsuccess for currencies');
-        db = e.target.result;
+        results = e.target.result;
         for (const result in results){
           for (const id in results[result]){
             const option1 = document.createElement('option');
