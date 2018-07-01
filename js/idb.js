@@ -64,16 +64,14 @@ const saveCurrencies = () => {
             let db = event.target.result;
         
             // Create an object store called "currency"    
-            let objStore = db.createObjectStore("conversions", { keyPath: 'id' });
+            let objStore = db.createObjectStore("conversions");
+              objStore.createIndex('key', 'value');
             }
             if (request) {
               request.onsuccess = e => {
               let currStore = e.target.result.transaction('conversions', "readwrite");
               let tbl = currStore.objectStore('conversions');
-            let saveOperation = tbl.add({
-              "id": cur,
-              "value":crate
-            });
+            let saveOperation = tbl.put(cur,crate);
               saveOperation.onsuccess = e => {
                 console.log("Saved to indexDB: " + e.target.result);
               };
