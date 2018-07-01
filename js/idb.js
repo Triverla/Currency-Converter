@@ -62,7 +62,7 @@ const saveCurrencies = () => {
       var tbl = currStore.objectStore('currency');
       var from = document.getElementById('from').value;
       var to = document.getElementById('to').value;
-      var cur = `'https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=ultra'`;
+      var cur = `https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=ultra`;
       var convrate = document.getElementById('convrate').value;
       var saveOperation = tbl.add({
        "currency": cur,
