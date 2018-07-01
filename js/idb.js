@@ -56,7 +56,7 @@ const saveCurrencies = () => {
 
     // Create an object store called "currency"    
     var objStore = db.createObjectStore("currency", { keyPath: 'id' });
-    
+    }
     if (request) {
       request.onsuccess = e => {
       var currStore = e.target.result.transaction('currency', "readwrite");
@@ -65,7 +65,7 @@ const saveCurrencies = () => {
       var to = document.getElementById('to').value;
       var cur = `'https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=ultra'`;
       var convrate = document.getElementById('convrate').value;
-      var saveOperation = tbl.put({
+      var saveOperation = tbl.add({
        "currency": cur,
         "convrate":convrate
        });
@@ -82,4 +82,3 @@ const saveCurrencies = () => {
       };
     }
     }
-  }
