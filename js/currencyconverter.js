@@ -37,10 +37,10 @@ let loadCurrencies = () => {
               for (const id in results[result]){
                 const option1 = document.createElement('option');
                 const option2 = document.createElement('option');
-                option1.value = results[result][id]['id'];
-                option2.value = results[result][id]['id'];
-                option1.appendChild(document.createTextNode(results[result][id]['id']));
-                option2.appendChild(document.createTextNode(results[result][id]['id']));
+                option1.value = results[result][id]['currencyName'];
+                option2.value = results[result][id]['currencyName'];
+                option1.appendChild(document.createTextNode(results[result][id]['currencyName']));
+                option2.appendChild(document.createTextNode(results[result][id]['currencyName']));
                 from.appendChild(option1);
                 to.appendChild(option2);
               }
