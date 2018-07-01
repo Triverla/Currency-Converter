@@ -71,11 +71,11 @@ const saveCurrencies = () => {
               let calc = rates[rate]; //rate being pass back to object to get the value
               crate = calc.toFixed(2); //to dispay conversion rate
             }
+            let saveOperation = tbl.add({
+              "currency": cur,
+               "convrate": crate
+              });
          });
-      let saveOperation = tbl.add({
-       "currency": cur,
-        "convrate": crate
-       });
        saveOperation.onsuccess = e => {
         let res = document.getElementById("idbsav");
         res.value = "Saved to indexDB: " + e.target.result;
