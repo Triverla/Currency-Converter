@@ -86,11 +86,8 @@ let loadCurrencies = () => {
       }
       if (request) {
         request.onsuccess = function (e) {
-          //var objectStore = e.target.result.createObjectStore("name", { keyPath: "myKey" });
-        //S1: Get the Transaction for the ObjectStore, here in this case it is for readwrite 
-        var currStore = e.target.result.transaction('currency', "readwrite");
-        //S2: Get the object store object
-        var tbl = currStore.objectStore('currency');
+        var currStore = e.target.result.transaction(["currency"], "readwrite");
+        var tbl = currStore.objectStore("currency");
 
       let from            =   document.getElementById("from").value;
       let to              =   document.getElementById("to").value;
@@ -99,8 +96,8 @@ let loadCurrencies = () => {
          return response.json();
          }).then((rates) => {
             for(let rate in rates){
-              console.log(rates[rate]); //rate of currency to be converted to
               let conversionrate = rates[rate]; //rate being pass back to object to get the value
+              console.log(conversionrate);
               let saveOperation = tbl.add({
               "currrency":  input,
               "rate": conversionrate,
