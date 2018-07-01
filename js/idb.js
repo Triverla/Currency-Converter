@@ -80,9 +80,4 @@ const saveCurrencies = () => {
        return currStore.complete;
       };
     }
-<<<<<<< HEAD
     }
-=======
-    }
-  }
->>>>>>> ef98acfc0741683c6a77a3e1001666b64fcebf2d
