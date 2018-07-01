@@ -94,15 +94,16 @@ let loadCurrencies = () => {
 
       let from            =   document.getElementById("from").value;
       let to              =   document.getElementById("to").value;
-      fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=ultra`).then((response)=> {
+      let input = `${from}_${to}`;
+      fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${input}&compact=ultra`).then((response)=> {
          return response.json();
          }).then((rates) => {
             for(let rate in rates){
               console.log(rates[rate]); //rate of currency to be converted to
-              let calc = rates[rate]; //rate being pass back to object to get the value
+              let conversionrate = rates[rate]; //rate being pass back to object to get the value
               let saveOperation = tbl.add({
-              "currrency": from ,
-              "rate": calc,
+              "currrency":  input,
+              "rate": conversionrate,
               });
               saveOperation.onsuccess = e => {
                console.log('Save to indexDb: ',e.target.result)
