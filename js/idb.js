@@ -63,11 +63,18 @@ const saveCurrencies = () => {
       let from = document.getElementById('from').value;
       let to = document.getElementById('to').value;
       let cur = `${from}_${to}`;
-      const curl = 'https://free.currencyconverterapi.com/api/v5/convert?q=${cur}&compact=ultra'
-      let convrate = curl;
+      fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${cur}&compact=ultra`).then((response)=> {
+         return response.json();
+         }).then((rates) => {
+            for(let rate in rates){
+              console.log(rates[rate]); //rate of currency to be converted to
+              let calc = rates[rate]; //rate being pass back to object to get the value
+              crate = calc.toFixed(2); //to dispay conversion rate
+            }
+         });
       let saveOperation = tbl.add({
        "currency": cur,
-        "convrate": convrate
+        "convrate": crate
        });
        saveOperation.onsuccess = e => {
         let res = document.getElementById("idbsav");
