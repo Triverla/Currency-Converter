@@ -47,19 +47,7 @@ ccurrencies = [currencies.results];
 })
 }
 
-const saveCurrencies = () => {
-    let request = indexedDB.open('curr', 3);
-    request.onupgradeneeded = event => {
-
-    let db = event.target.result;
-
-    // Create an object store called "currency"    
-    let objStore = db.createObjectStore("currency", { keyPath: 'currency' });
-    }
-    if (request) {
-      request.onsuccess = e => {
-      let currStore = e.target.result.transaction('currency', "readwrite");
-      let tbl = currStore.objectStore('currency');
+const saveCurrencies = () => {  
       let from = document.getElementById('from').value;
       let to = document.getElementById('to').value;
       let cur = `${from}_${to}`;
@@ -70,7 +58,18 @@ const saveCurrencies = () => {
               console.log(rates[rate]); //rate of currency to be converted to
               let calc = rates[rate]; //rate being pass back to object to get the value
               crate = calc.toFixed(2); //to dispay conversion rate
+            }let request = indexedDB.open('curr', 3);
+            request.onupgradeneeded = event => {
+        
+            let db = event.target.result;
+        
+            // Create an object store called "currency"    
+            let objStore = db.createObjectStore("currency", { keyPath: 'currency' });
             }
+            if (request) {
+              request.onsuccess = e => {
+              let currStore = e.target.result.transaction('currency', "readwrite");
+              let tbl = currStore.objectStore('currency');
             let saveOperation = tbl.add({
               "currency": cur,
                "convrate": crate
@@ -83,8 +82,9 @@ const saveCurrencies = () => {
                 let res = document.getElementById("idbsav");
                 res.value = "Error Occured" + e.value;
                };
-         });
+         }
        return currStore.complete;
       };
     }
+  );
     }
