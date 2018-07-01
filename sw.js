@@ -7,7 +7,8 @@
       'logo.png',
       'css/font-awesome/css/font-awesome.min.css',
       'https://free.currencyconverterapi.com/api/v5/currencies',
-      'https://free.currencyconverterapi.com/api/v5/convert?q=USD_NGN&compact=ultra'
+      'https://free.currencyconverterapi.com/api/v5/convert?q=USD_NGN&compact=ultra',
+      'https://free.currencyconverterapi.com/api/v5/convert?q=NGN_USD,NGN_EUR'
     ];
     
     const version = 'v1.0';
@@ -17,7 +18,7 @@
       event.waitUntil(
         caches.open(version)
           .then(cache => {
-          console.log("cache opened");
+          console.log("cache opened: Adding Files to cache...");
           return cache.addAll(urlsToCache_);
         })
       );
@@ -33,51 +34,21 @@
       } 
     }
     if(requestUrl.url === 'https://free.currencyconverterapi.com/api/v5/currencies'){
-      console.log("Added to cache");
       event.respondWith(caches.match('https://free.currencyconverterapi.com/api/v5/currencies'));
       return;
     }
 
     if(requestUrl.url === 'https://free.currencyconverterapi.com/api/v5/convert?q=USD_NGN&compact=ultra'){
-      console.log("Added to cache");
       event.respondWith(caches.match('https://free.currencyconverterapi.com/api/v5/convert?q=USD_NGN&compact=ultra'));
       return;
     }
   
       event.respondWith(
-        //loadCur(),
         caches.match(event.request).then(response => {
           return response || fetch(event.request);
         })
       );
     });
-  
-    const loadCur = () =>{
-      let cur = indexedDB.open("currencies");
-      cur.onsuccess = function (conn){
-      let trans = cur.result.transaction(["store"]);
-      let obj = trans.objectStore("store");
-      let cursor = obj.openCursor();
-      cursor.onsuccess = e => {
-              if (!cursor.result) {
-                 let from = document.getElementById("from"); 
-                 let to = document.getElementById("to"); 
-                 let option = document.createElement("option");
-                 let option2 = document.createElement("option");
-                 option.value = cursor.result.value;
-                 option2.value = cursor.result.value;                
-                 let optionText = document.createTextNode(cursor.result.value);                
-                 option.appendChild(optionText);
-                 option2.appendChild(optionText);
-                 from.appendChild(option); 
-                 to.appendChild(option);
-                 cursor["continue"]()
-              } else {
-                 // cursor ended
-              }
-      }
-    }
-  }
   
     
     self.addEventListener('activate', event => {
@@ -85,7 +56,6 @@
       let cacheWhitelist = [version];
     
       event.waitUntil(
-        //loadCur(),
         caches.keys().then(cacheNames => {
           return Promise.all(
             cacheNames.map(cacheName => {
