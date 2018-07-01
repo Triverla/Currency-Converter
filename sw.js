@@ -4,7 +4,8 @@
       'css/bootstrap.css',
       'js/currencyconverter.js',
       'js/idb.js',
-      'css/font-awesome/css/font-awesome.min.css'
+      'css/font-awesome/css/font-awesome.min.css',
+      'https://free.currencyconverterapi.com/api/v5/currencies'
     ];
     
     const version = 'v1.0';
@@ -31,29 +32,8 @@
     }
     if(requestUrl.url === 'https://free.currencyconverterapi.com/api/v5/currencies'){
       console.log("IndexDB Reqrd");
-      let openRequest = indexedDB.open('currencies', 1);
-      openRequest.onupgradeneeded = e => {
-      var db = e.target.result;
-       let ob = db.transaction('store');
-       let data = ob.objectStore('store');
-       let results = data.getAll();
-      };
-      openRequest.onsuccess = e => {
-      console.log('running onsuccess for currencies');
-        results = e.target.result;
-        for (const result in results){
-          for (const id in results[result]){
-            const option1 = document.createElement('option');
-            const option2 = document.createElement('option');
-            option1.value = results[result][id]['id'];
-            option2.value = results[result][id]['id'];
-            option1.appendChild(document.createTextNode(results[result][id]['id']));
-            option2.appendChild(document.createTextNode(results[result][id]['id']));
-            from.appendChild(option1);
-            to.appendChild(option2);
-          }
-        }
-}
+      event.respondWith(caches.match('https://free.currencyconverterapi.com/api/v5/currencies'));
+      return;
     }
   
       event.respondWith(
