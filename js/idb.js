@@ -70,7 +70,7 @@ const saveCurrencies = () => {
               request.onsuccess = e => {
               let currStore = e.target.result.transaction('currency', "readwrite");
               let tbl = currStore.objectStore('currency');
-            let saveOperation = tbl.add(crate);
+            let saveOperation = tbl.put(crate);
               saveOperation.onsuccess = e => {
                 console.log("Saved to indexDB: " + e.target.result);
               };
